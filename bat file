@@ -1,0 +1,18 @@
+@echo off
+
+rem Get OS version
+for /f "tokens=2 delims=[]" %%i in ('ver') do set OS_Version=%%i
+echo OS Version: %OS_Version%
+
+rem Get available disk space
+for /f "tokens=1-9" %%i in ('fsutil volume diskfree %cd%') do (
+    if "%%i"=="Total" (
+        set /a total_space=%%j
+        set /a free_space=%%l
+    )
+)
+set /a free_space_mb=%free_space% / 1024
+echo Free disk space (MB): %free_space_mb%
+
+rem Get user name
+echo User name: %USERNAME%
