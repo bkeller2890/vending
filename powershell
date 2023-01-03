@@ -1,0 +1,7 @@
+$os = Get-WmiObject -Class Win32_OperatingSystem
+$disk = Get-WmiObject -Class Win32_LogicalDisk | Where-Object {$_.DeviceID -eq "C:"}
+$username = $env:USERNAME
+
+Write-Output "OS Version: $($os.Caption)"
+Write-Output "Available Disk Space: $($disk.FreeSpace / 1GB) GB"
+Write-Output "User Name: $username"
