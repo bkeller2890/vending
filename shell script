@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# Display Mac OS version
+os_version=$(sw_vers -productVersion)
+echo "Mac OS version: $os_version"
+
+# Display available disk space
+disk_space=$(df -h / | awk '{print $4}' | tail -1)
+echo "Available disk space: $disk_space"
+
+# Display user name
+user_name=$(whoami)
+echo "User name: $user_name"
