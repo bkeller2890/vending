@@ -1,0 +1,22 @@
+Set objWMIService = GetObject("winmgmts:\\.\root\cimv2")
+
+' Get OS version
+Set colOperatingSystems = objWMIService.ExecQuery _
+    ("Select * from Win32_OperatingSystem")
+
+For Each objOperatingSystem in colOperatingSystems
+    WScript.Echo "OS version: " & objOperatingSystem.Caption
+Next
+
+' Get available disk space
+Set colLogicalDisks = objWMIService.ExecQuery _
+    ("Select * from Win32_LogicalDisk Where DeviceID='C:'")
+
+For Each objLogicalDisk in colLogicalDisks
+    WScript.Echo "Available disk space: " & _
+        objLogicalDisk.FreeSpace & " bytes"
+Next
+
+' Get user name
+Set objNetwork = CreateObject("WScript.Network")
+WScript.Echo "User name: " & objNetwork.UserName
