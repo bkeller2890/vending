@@ -1,0 +1,31 @@
+import platform
+import subprocess
+import os
+
+# Get OS version
+os_name = platform.system()
+os_version = platform.release()
+print("OS:", os_name, os_version)
+
+# Get available disk space
+if os_name == "Windows":
+    # Use the `wmic` command to get the free space in bytes
+    free_bytes = subprocess.check_output(["wmic", "logicaldisk", "where", "drivetype=3", "get", "freespace"])
+    # The output is in the form: "FreeSpace  \n123456 \n789012 \n..."
+    # Split the output by newline characters and convert the second element (the free space value) to an integer
+    free_space = int(free_bytes.split(b'\n')[1])
+    # Convert bytes to megabytes and print the result
+    free_space_mb = free_space / 1024 / 1024
+    print("Free disk space (MB):", free_space_mb)
+else:
+    # Use the `df` command to get the free space in kilobytes
+    free_kb = subprocess.check_output(["df", "-k"]).split(b'\n')[1]
+    # Split the output by whitespace characters and get the third element (the free space value)
+    free_space = int(free_kb.split()[2])
+    # Convert kilobytes to megabytes and print the result
+    free_space_mb = free_space / 1024
+    print("Free disk space (MB):", free_space_mb)
+
+# Get user name
+user_name = os.getlogin()
+print("User:", user_name)
