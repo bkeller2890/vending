@@ -1,4 +1,4 @@
-import re
+import re # re means reuglar expression 
 
 def validate_phone_number(phone_number):
   """"
