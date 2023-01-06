@@ -6,6 +6,7 @@ password = input("Enter a password: ")
 # Create a hash of the password using the sha256 algorithm
 password_hash = hashlib.sha256(password.encode('utf-8')).hexdigest()
 
+#Display the hash of the text input by the user, this is just for testing purposes and would be removed in production.
 print (password_hash)
 
 # Store the known hash
